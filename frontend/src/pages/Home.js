@@ -2,14 +2,24 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteTask, getTasks } from '../features/tasks/taskSlice';
 import { useNavigate } from 'react-router-dom';
+import { getUsers } from '../features/users/userSlice';
 
 const Home = () => {
 
     const {tasks, isLoading, isError, message} = useSelector((state) => state.tasks)
+    const {users, isLoading1, isError1, message1} = useSelector((state) => state.users);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     // const status = 'pending'
     const [status, setStatus] = useState('pending');
+
+    useEffect(() => {
+        if(isError1) {
+            console.log(message1);
+        }
+        dispatch(getUsers());
+    }, [isError1, message1, dispatch])
+
     useEffect(() => {
         if(isError) {
             console.log(message);
@@ -19,6 +29,20 @@ const Home = () => {
         
     }, [isError, message, dispatch, status])
     console.log(tasks);
+
+    const userMap = new Map();
+    
+        if (users && users.length > 0) {
+            
+            users.forEach(user => {
+                if(user?.email && user?.name) {
+                    userMap.set(user.email, user.name); 
+                }
+                
+            });
+        }
+    
+    console.log(userMap);
 
     const handleDelete = (id) => {
         console.log(id);
@@ -92,7 +116,9 @@ const Home = () => {
                                     {task.description}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {task.assigned_to} 
+                                    <h1>{userMap.get(task.assigned_to)}</h1>
+                                    <h1>{task.assigned_to}</h1> 
+                                    
                                     {/* here only user email is displayed, to display user name, create a backend api to get user by his email
                                     then create a map (task_id -> user name) and populate it by iterating through tasks array and calling getSpecificUser API */}
                                 </td>
