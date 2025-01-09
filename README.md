@@ -36,3 +36,4 @@ REACT_APP_API_URL = '[{Hosted Server Url}/]'
 <h2>Note</h2>
 <h4>When using the application on localhost use Hosted Server Url: <code>http:localhost:5000/</code></h4>
 <h4>When using the application through ngrok tunneling use Hosted Server Url: <code>https://9194-2405-201-8002-62ee-4191-7b79-98bd-eb41.ngrok-free.app/</code></h4>
+<h4>Link to PostMan API Docs: https://documenter.getpostman.com/view/23347149/2sAYQUqu5p</h4>
