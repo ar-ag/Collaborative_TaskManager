@@ -44,6 +44,14 @@ const addUser = asyncHandler(async (req, res) => {
 
 })
 
+// @description:    Gets all users
+// @route:          GET /users
+const getUsers = asyncHandler(async(req, res) => {
+    const users = await User.find();
+    res.status(200).json(users);
+})
+
 module.exports = {
-    addUser
+    addUser,
+    getUsers
 }

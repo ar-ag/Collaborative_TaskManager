@@ -8,7 +8,7 @@ const { response } = require('express');
 // @route:          POST /tasks
 const addTask = asyncHandler(async(req, res) => {
     const {title, description, assigned_to} = req.body;
-
+    console.log('inside add Task', title);
 
     if(!title || !assigned_to) {
         res.status(400);
@@ -31,7 +31,7 @@ const addTask = asyncHandler(async(req, res) => {
         description,
         assigned_to,
     })
-
+    console.log('after validations');
     if(task) {
         res.status(201).json({
             _id:task.id,
@@ -44,8 +44,9 @@ const addTask = asyncHandler(async(req, res) => {
 })
 
 // @description:    Gets tasks filtered by status
-// @route:          GET /users
+// @route:          GET /tasks
 const getTasks = asyncHandler(async(req, res) => {
+    // console.log('inside get tasks');
     const query_param = req.query.status;
     var tasks = [];
     
