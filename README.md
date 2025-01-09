@@ -9,8 +9,8 @@
 <li>Backend: <code>https://9194-2405-201-8002-62ee-4191-7b79-98bd-eb41.ngrok-free.app</code></li>
 
 <h2>Installation</h2>
-<code>git clone https://github.com/ar-ag/REST-API</code><br>
-<code>cd REST-API</code><br>
+<code>git clone https://github.com/ar-ag/Collaborative_TaskManager</code><br>
+<code>cd Collaborative_TaskManager</code><br>
 <code>npm install</code><br>
 
 <h2>Using the App on local device</h2>
