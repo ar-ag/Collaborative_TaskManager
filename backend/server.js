@@ -1,5 +1,5 @@
 const express = require('express');
-const dotenv = require('dotenv').config({path:'../.env'});
+const dotenv = require('dotenv').config();
 const port = process.env.PORT || 5000;
 const helmet = require('helmet');
 const cors = require('cors');
@@ -14,6 +14,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(cors())
 
+app.get('/', (req, res) => {
+    res.send('<h1>Hello World</h1>')
+})
 app.use('/users', require('./routes/userRoutes'))
 app.use('/tasks', require('./routes/taskRoutes'))
 

@@ -31,16 +31,16 @@ const Home = () => {
     console.log(tasks);
 
     const userMap = new Map();
-    
-        if (users && users.length > 0) {
+    console.log(users);
+    if (users && users.length > 0) {
+        
+        users.forEach(user => {
+            if(user?.email && user?.name) {
+                userMap.set(user.email, user.name); 
+            }
             
-            users.forEach(user => {
-                if(user?.email && user?.name) {
-                    userMap.set(user.email, user.name); 
-                }
-                
-            });
-        }
+        });
+    }
     
     console.log(userMap);
 
@@ -102,7 +102,7 @@ const Home = () => {
                         <tr>
                             <td colSpan="6" className='text-center py-4'>Loading...</td>
                         </tr>
-                    ):tasks.length == 0 ? (
+                    ):tasks.length === 0 ? (
                         <tr>
                             <td colSpan="6" className='text-center py-4'>No tasks</td>
                         </tr>

@@ -16,7 +16,7 @@ const Users = () => {
                 console.log(message);
             }
             dispatch(getUsers());
-        }, [])
+        }, [isError, message, dispatch])
         console.log(users);
 
     const handleSubmit = (e) => {
