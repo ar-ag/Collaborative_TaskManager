@@ -64,9 +64,7 @@ export const taskSlice = createSlice({
             .addCase(addTask.fulfilled,(state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                // console.log('before adding the bill', state);
                 state.tasks.push(action.payload)
-                // console.log('inside extraReducer', state.bills);
             })
             .addCase(addTask.rejected, (state, action) => {
                 state.isLoading = false

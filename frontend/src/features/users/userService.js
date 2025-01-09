@@ -1,6 +1,5 @@
 import axios from "axios";
-// import dotenv from 'dotenv';
-// dotenv.config();
+
 // const API_URL = 'http://localhost:5000/users'
 console.log(process.env);
 const API_URL = process.env.REACT_APP_API_URL + 'users';
@@ -27,7 +26,7 @@ const addUser = async(userData) => {
 const userService = {
     addUser,
     getUsers, 
-    // deleteGoal,
+    
 }
 
 export default userService

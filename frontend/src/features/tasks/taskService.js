@@ -1,6 +1,5 @@
 import axios from "axios";
-// import dotenv from 'dotenv';
-// dotenv.config();
+
 // const API_URL = 'http://localhost:5000/tasks'
 const API_URL = process.env.REACT_APP_API_URL + 'tasks';
 // const API_URL = 'https://9194-2405-201-8002-62ee-4191-7b79-98bd-eb41.ngrok-free.app/tasks';

@@ -59,7 +59,7 @@ const Home = () => {
     }
 
   return (
-    // <div className="mt-8 p-4 sm:ml-64">
+    
         
 
         <div className="mt-8 p-4 sm:ml-64 relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -118,9 +118,7 @@ const Home = () => {
                                 <td className="px-6 py-4">
                                     <h1>{userMap.get(task.assigned_to)}</h1>
                                     <h1>{task.assigned_to}</h1> 
-                                    
-                                    {/* here only user email is displayed, to display user name, create a backend api to get user by his email
-                                    then create a map (task_id -> user name) and populate it by iterating through tasks array and calling getSpecificUser API */}
+                                
                                 </td>
                                 <td className="px-6 py-4">
                                     {task.status}
@@ -137,35 +135,13 @@ const Home = () => {
                             </tr>
                         ))
                     )}
-                    {/* <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple MacBook Pro 17"
-                        </th>
-                        <td className="px-6 py-4">
-                            Silver
-                        </td>
-                        <td className="px-6 py-4">
-                            Laptop
-                        </td>
-                        <td className="px-6 py-4">
-                            $2999
-                        </td>
-                        <td className="px-6 py-4">
-                            $2999
-                        </td>
-                        <td className="px-6 py-4 text-right">
-                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                        <td className="px-6 py-4 text-right">
-                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        </td>
-                    </tr> */}
+                
                     
                 </tbody>
             </table>
         </div>
 
-    // </div>
+    
   )
 }
 

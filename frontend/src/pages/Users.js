@@ -43,15 +43,7 @@ const Users = () => {
                 </tr>
             </thead>
             <tbody>
-                {/* <tr className="bg-white dark:bg-gray-800">
-                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        Apple MacBook Pro 17"
-                    </th>
-                    <td className="px-6 py-4">
-                        Silver
-                    </td>
-                    
-                </tr> */}
+
 
                 {isLoading ? (
                         <tr>
@@ -90,9 +82,9 @@ const Users = () => {
             
         <div id="crud-modal" tabindex="-1" className={`${openForm ? 'visible opacity-100' : 'invisible opacity-0'} fixed z-50 inset-0 flex justify-center items-center transition-opacity`}>
             <div className="relative p-4 w-full max-w-md max-h-full">
-                {/* <!-- Modal content --> */}
+                
                 <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                    {/* <!-- Modal header --> */}
+                    
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                             Create New Product
@@ -104,7 +96,7 @@ const Users = () => {
                             <span className="sr-only">Close modal</span>
                         </button>
                     </div>
-                    {/* <!-- Modal body --> */}
+                    
                     <form onSubmit={handleSubmit} className="p-4 md:p-5">
                         <div className="grid gap-4 mb-4 grid-cols-2">
                             <div className="col-span-2">
