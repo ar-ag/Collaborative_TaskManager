@@ -20,6 +20,16 @@ export const getUsers = createAsyncThunk('users/getAll', async(_,thunkAPI) => {
     }
 })
 
+export const addUser = createAsyncThunk('users/create', async(userData, thunkAPI) => {
+    try {
+        console.log('inside user Slice')
+        return await userService.addUser(userData);
+    } catch(error) {
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
 export const userSlice = createSlice({
     name:'user',
     initialState,
@@ -37,6 +47,21 @@ export const userSlice = createSlice({
                 state.users = action.payload
             })
             .addCase(getUsers.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.message = action.payload
+            })
+            .addCase(addUser.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(addUser.fulfilled,(state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                // console.log('before adding the bill', state);
+                state.users.push(action.payload)
+                // console.log('inside extraReducer', state.bills);
+            })
+            .addCase(addUser.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload

@@ -2,33 +2,60 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getUsers } from '../features/users/userSlice';
-import { addTask } from '../features/tasks/taskSlice';
+import { addTask, updateTask } from '../features/tasks/taskSlice';
 
 const Form = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const {users, isLoading, isError, message} = useSelector((state) => state.users);
     const {tasks, isLoading1, isError1, message1} = useSelector((state) => state.tasks);
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [status, setStatus] = useState('pending');
     const [user, setUser] = useState('');
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+
+    const taskToEdit = location.state?.task;
+
     useEffect(() => {
         if(isError) {
             console.log(message);
         }
         dispatch(getUsers());
+
+        if(taskToEdit) {
+            setTitle(taskToEdit.title);
+            setDescription(taskToEdit.description);
+            setUser(taskToEdit.assigned_to);
+            setStatus(taskToEdit.status);
+        }
     }, [isError, message, dispatch])
     console.log(users);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const taskData = {title, description, assigned_to:user};
-        dispatch(addTask(taskData))
+        var taskData;
+        if(taskToEdit) {
+            taskData = {_id : taskToEdit._id, title, description, assigned_to:user, status};
+            dispatch(updateTask(taskData));
+        } else {
+            taskData = {title, description, assigned_to:user};
+            dispatch(addTask(taskData))
+        }
+        
+        
         setTitle('');
         setDescription('');
         setUser('');
         navigate('/');
+    }
+
+    const handleStatusChange = () => {
+        const updatedStatus = status === 'pending' ? 'completed' : 'pending';
+        setStatus(updatedStatus);
+
     }
     
   return (
@@ -56,7 +83,7 @@ const Form = () => {
                         Select a user
                     </option>
                     
-                    {users.length == 0 ? (
+                    {users.length === 0 ? (
                         <span>No Added User</span>
                     ) : (
                         users.map((u) => (
@@ -70,6 +97,22 @@ const Form = () => {
                     
                 </select>
             </div>
+
+
+
+            {
+                taskToEdit?(
+                    <div class="flex items-start mb-5">
+                        <div class="flex items-center h-5">
+                        <input id="status" type="checkbox" checked={status === "completed"} onChange={handleStatusChange} class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
+                        </div>
+                        <label for="status" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Completed</label>
+                    </div>
+                ):(
+                    <></>
+                )
+            }
+        
     <button type="submit"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
     </form>
 

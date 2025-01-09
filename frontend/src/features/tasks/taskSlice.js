@@ -30,24 +30,24 @@ export const getTasks = createAsyncThunk('tasks/getAll', async(status,thunkAPI) 
     }
 })
 
-// export const deleteBill = createAsyncThunk('bills/delete', async (id, thunkAPI) => {
-//     try {
-//         return await billService.deleteBill(id)
-//     } catch(error) {
-//         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
-//         return thunkAPI.rejectWithValue(message)
-//     }
-// })
+export const deleteTask = createAsyncThunk('tasks/delete', async (id, thunkAPI) => {
+    try {
+        return await taskService.deleteTask(id)
+    } catch(error) {
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
 
 
-// export const updateBill = createAsyncThunk('bills/update', async (updatedBill, thunkAPI) => {
-//     try {
-//         return await billService.updateBill(updatedBill)
-//     } catch(error) {
-//         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
-//         return thunkAPI.rejectWithValue(message)
-//     }
-// })
+export const updateTask = createAsyncThunk('tasks/update', async (taskData, thunkAPI) => {
+    try {
+        return await taskService.updateTask(taskData)
+    } catch(error) {
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
 
 
 export const taskSlice = createSlice({
@@ -86,37 +86,36 @@ export const taskSlice = createSlice({
                 state.isError = true
                 state.message = action.payload
             })
-            // .addCase(deleteBill.pending, (state) => {
-            //     state.isLoading = true
-            // })
-            // .addCase(deleteBill.fulfilled,(state, action) => {
-            //     state.isLoading = false
-            //     state.isSuccess = true
-            //     state.bills = state.bills.filter((bill) => bill._id !== action.payload)
-            // })
-            // .addCase(deleteBill.rejected, (state, action) => {
-            //     state.isLoading = false
-            //     state.isError = true
-            //     state.message = action.payload
-            // })
-            // .addCase(updateBill.pending, (state) => {
-            //     state.isLoading = true;
-            // })
-            // .addCase(updateBill.fulfilled, (state, action) => {
-            //     state.isLoading = false;
-            //     state.isSuccess = true;
+            .addCase(deleteTask.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(deleteTask.fulfilled,(state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.tasks = state.tasks.filter((task) => task._id !== action.payload)
+            })
+            .addCase(deleteTask.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.message = action.payload
+            })
+            .addCase(updateTask.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(updateTask.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
 
-            //     // Replace the updated bill in the array
-            //     const index = state.bills.findIndex((bill) => bill.id === action.payload.id);
-            //     if (index !== -1) {
-            //         state.bills[index] = action.payload;
-            //     }
-            // })
-            // .addCase(updateBill.rejected, (state, action) => {
-            //     state.isLoading = false;
-            //     state.isError = true;
-            //     state.message = action.payload;
-            // });
+                const index = state.tasks.findIndex((task) => task._id === action.payload._id);
+                if (index !== -1) {
+                    state.tasks[index] = action.payload;
+                }
+            })
+            .addCase(updateTask.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            });
     }
 })
 

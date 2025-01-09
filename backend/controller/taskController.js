@@ -80,7 +80,7 @@ const updateTask = asyncHandler(async(req, res) => {
         new:true,
         runValidators: true
     })
-
+    console.log('inside update Task', updatedTask);
     if(updatedTask) {
         res.status(200).json(updatedTask);
     } else {

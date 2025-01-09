@@ -19,13 +19,22 @@ const addTask = async(taskData) => {
     return response.data;
 }
 
+const deleteTask = async(taskId) => {
+    const response = await axios.delete(API_URL + '/' + taskId);
+    return taskId;
+}
 
 
+const updateTask = async(taskData) => {
+    console.log('inside updateTask service', taskData);
+    const response = await axios.put(API_URL + '/' + taskData._id, taskData);
+    return response.data;
+}
 const taskService = {
-    // createGoal,
+    updateTask,
     getTasks, 
     addTask,
-    // deleteGoal,
+    deleteTask,
 }
 
 export default taskService

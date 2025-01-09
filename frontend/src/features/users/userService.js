@@ -7,10 +7,13 @@ const getUsers = async() => {
     return response.data
 }
 
-
+const addUser = async(userData) => {
+    const response = await axios.post(API_URL, userData);
+    console.log('inside user service', response.data);
+}
 
 const userService = {
-    // createGoal,
+    addUser,
     getUsers, 
     // deleteGoal,
 }

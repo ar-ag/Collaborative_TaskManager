@@ -1,21 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getTasks } from '../features/tasks/taskSlice';
+import { deleteTask, getTasks } from '../features/tasks/taskSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
 
     const {tasks, isLoading, isError, message} = useSelector((state) => state.tasks)
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     // const status = 'pending'
     const [status, setStatus] = useState('pending');
     useEffect(() => {
         if(isError) {
             console.log(message);
         }
+        console.log(status);
         dispatch(getTasks(status))
         
     }, [isError, message, dispatch, status])
     console.log(tasks);
+
+    const handleDelete = (id) => {
+        console.log(id);
+        if (window.confirm("Are you sure you want to delete this bill?")) {
+            dispatch(deleteTask(id));
+            console.log(status);
+            dispatch(getTasks(status));
+            console.log(tasks);
+        }
+    };
+
+    const handleEdit = (task) => {
+        navigate('/form', {state : {task}})
+    }
+
   return (
     // <div className="mt-8 p-4 sm:ml-64">
         
@@ -85,10 +103,10 @@ const Home = () => {
                                     {task.createdAt}
                                 </td>
                                 <td className="px-6 py-4 text-right">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    <button onClick={() => handleEdit(task)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
                                 </td>
                                 <td className="px-6 py-4 text-right">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    <button onClick={() => handleDelete(task._id)} className="font-medium text-red-600 dark:text-blue-500 hover:underline">Delete</button>
                                 </td>
                             </tr>
                         ))
